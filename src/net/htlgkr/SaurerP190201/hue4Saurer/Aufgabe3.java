@@ -1,40 +1,54 @@
 package net.htlgkr.SaurerP190201.hue4Saurer;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Aufgabe3
 {
-    List<String> arr = new ArrayList<>();
+
     public static void main(String[] args)
     {
-        Aufgabe3 a = new Aufgabe3();
-        a.arr.add("hello");
-        a.arr.add("dad");
-        a.arr.add("family");
-        a.arr.add("test");
-        a.arr.add("no");
-        a.arr.add(" ");
+        List<String> arr = new ArrayList<>();
+        arr.add("hello");
+        arr.add("dad");
+        arr.add("family");
+        arr.add("test");
+        arr.add("no");
+        arr.add("");
+
+        System.out.println(getCountEmptyString(arr));
+        System.out.println(getCountLength3(arr));
+        System.out.println(deleteEmptyStrings(arr));
+        System.out.println(getMergedString(arr,"/"));
+
+        List<Integer> arri = new ArrayList<>();
+        arri.add(1);
+        arri.add(2);
+        arri.add(3);
+        arri.add(4);
+
+        System.out.println(getSquares(arri));
+        System.out.println(getMax(arri));
+        System.out.println(getMin(arri));
+        System.out.println(getSum(arri));
+        System.out.println(getAverage(arri));
     }
 
     private static int getCountEmptyString(List<String> strings)
     {
-        int i = (int) strings.stream().map(x -> Objects.equals(x, " ")).count();
-        return i;
+        int ces = (int) strings.stream().filter(x1 -> x1=="").count();
+        return ces;
     }
 
     private static int getCountLength3(List<String> strings)
     {
-        int i = (int) strings.stream().map(x -> x.length()>=3).count();
-        return i;
+        int ces = Math.toIntExact(strings.stream().filter(x -> x.length()>=3).count());
+        return ces;
     }
 
     private static List<String> deleteEmptyStrings(List<String> strings)
     {
-        strings.removeIf(x -> x.equals(" "));
+        strings.removeIf(x -> x.equals(""));
         return strings;
     }
 
@@ -46,18 +60,20 @@ public class Aufgabe3
 
     private static List<Integer> getSquares(List<Integer> numbers)
     {
-        numbers.stream().map(x -> Math.pow(x,2));
-        return numbers;
+        List<Integer> results = numbers.stream().map(p -> p = Math.toIntExact(Math.round(Math.pow(p, 2)))).collect(Collectors.toList());
+        return results;
     }
 
     private static int getMax(List<Integer> numbers)
     {
-        int max = numbers.stream().max(Comparator.comparing(x -> x));
+        int max = numbers.stream().max(Comparator.comparing(x -> x)).get();
+        return max;
     }
 
     private static int getMin(List<Integer> numbers)
     {
-
+        int max = numbers.stream().min(Comparator.comparing(x -> x)).get();
+        return max;
     }
 
     private static int getSum(List<Integer> numbers)
