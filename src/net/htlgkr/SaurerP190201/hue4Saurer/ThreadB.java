@@ -6,17 +6,15 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 public class ThreadB implements Callable<Integer>
 {
+    int biswohin;
+
+    public ThreadB(int biswohin) {
+        this.biswohin = biswohin;
+    }
+
     @Override
     public Integer call() throws Exception
     {
-        Aufgabe2 a = new Aufgabe2();
-        int summe = 0;
-        int z=1;
-        for (int i = summe-100; i < a.weite; i++)
-        {
-            summe += z;
-            z++;
-        }
-        return null;
+        return ((biswohin+1)*biswohin)/2;
     }
 }

@@ -5,34 +5,27 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
-public class ThreadA implements Callable<List<Integer>>
+public class ThreadA implements Runnable
 {
-    int weite;
-    int weite2;
-
-    public ThreadA(int weite, int weite2)
+    Integer teiler;
+    List<Integer> intvomchunk;
+    int number;
+    public ThreadA(Integer teiler, List<Integer> intvomchunk, int number)
     {
-        this.weite = weite;
-        this.weite2 = weite2;
-    }
-
-    public static void main(String[] args)
-    {
-        Aufgabe1 a = new Aufgabe1();
-        a.filltest();
-        ThreadPoolExecutor tpe = (ThreadPoolExecutor) Executors.newFixedThreadPool(a.chunk);
-
-        for (int i = 1; i < a.chunk+1; i++)
-        {
-            System.out.println("Created Thread "+i);
-            tpe.execute(a);
-        }
-        tpe.shutdown();
+        this.teiler = teiler;
+        this.intvomchunk = intvomchunk;
+        this.number = number;
     }
 
     @Override
-    public List<Integer> call() throws Exception
+    public void run()
     {
-        return null;
+        for(int i : intvomchunk)
+        {
+            if(i % teiler == 0)
+            {
+                if(i!=0){System.out.println("Thread "+number+" found: "+i);}
+            }
+        }
     }
 }

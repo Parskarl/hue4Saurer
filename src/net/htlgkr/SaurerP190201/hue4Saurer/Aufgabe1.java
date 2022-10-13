@@ -4,46 +4,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
-public class Aufgabe1 implements Runnable
+public class Aufgabe1
 {
     ArrayList<Integer> arr = new ArrayList<>();
-    ArrayList<Integer> divisable = new ArrayList<>();
     int chunk;
     int teiler;
-    static int groesederteile;
-    /*public static void main(String[] args)
-    {
-        Aufgabe1 a = new Aufgabe1();
-        String FILENAME = "numbers.csv";
-        try {Scanner s = new Scanner(new File(FILENAME));
-            while(s.hasNextLine())
-            {
-                String l = s.nextLine();
-                String[] aline = l.split(":");
-                for (String str:aline)
-                {
-                    try{
-                        a.arr.add(Integer.valueOf(str));
-                    }
-                    catch (Exception e)
-                    {
-                        System.out.println("Zahl "+str+" funktioniert nicht!");
-                    }
-                }
-            }
-        }
-        catch (FileNotFoundException e) {e.printStackTrace();}
-        System.out.println();
-        System.out.println("Geben sie die Gewünschte Chunkzahl ein:");
-        Scanner schunks = new Scanner(System.in);
-        chunk=Integer.parseInt(schunks.nextLine());
-        System.out.println("Geben sie den Gewünschten Teiler ein:");
-        Scanner console = new Scanner(System.in);
-        teiler = Integer.parseInt(console.nextLine());
-    }
-*/
+
     public void filltest()
     {
         String FILENAME = "numbers.csv";
@@ -69,40 +40,36 @@ public class Aufgabe1 implements Runnable
         System.out.println("Geben sie die Gewünschte Chunkzahl ein:");
         Scanner schunks = new Scanner(System.in);
         chunk=Integer.parseInt(schunks.nextLine());
-        groesederteile = arr.size()-1/chunk;
-        //thread1 nimmt 0-> groessederteile, thread 2 0+groessederteile -> groessederteile+groessederteile
         System.out.println("Geben sie den Gewünschten Teiler ein:");
         Scanner console = new Scanner(System.in);
         teiler = Integer.parseInt(console.nextLine());
     }
 
-    public void repeat()
+    public static void main(String[] args)
     {
-        System.out.println();
-        System.out.println("Geben sie die Gewünschte Chunkzahl ein:");
-        Scanner schunks = new Scanner(System.in);
-        chunk=Integer.parseInt(schunks.nextLine());
-
-        System.out.println("Geben sie den Gewünschten Teiler ein:");
-        Scanner console = new Scanner(System.in);
-        teiler = Integer.parseInt(console.nextLine());
-    }
-
-    @Override
-    public void run()
-    {
-        int test =0;
-        int g = groesederteile;
-        while(test <= g)
+        Aufgabe1 a = new Aufgabe1();
+        a.filltest();
+        int lengthofeverylist = (a.arr.size()/a.chunk) + 1;
+        List<List<Integer>> listoflistsofints = new ArrayList<>();
+        int c =0;
+        for (int i = 0; i < a.chunk; i++)
         {
-            for (int a:arr)
+            List<Integer> az = new ArrayList<>();
+            for(int j = 0; j < lengthofeverylist; j++)
             {
-                if(a%teiler==0)
-                {
-                    System.out.println(a);
-                }
+                if(c==a.arr.size()){break;}
+                az.add(a.arr.get(c));
+                c++;
             }
+            listoflistsofints.add(az);
         }
+        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(listoflistsofints.size());
+        int whatthread =1;
+        for(List<Integer> lists : listoflistsofints)
+        {
+            ThreadA cd = new ThreadA(a.teiler,lists,whatthread);whatthread++;
+            executor.execute(cd);
+        }
+        executor.shutdown();
     }
-    //checkfordivisability , zb. n%x==0;
 }
