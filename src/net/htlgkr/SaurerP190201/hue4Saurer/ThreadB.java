@@ -1,20 +1,22 @@
 package net.htlgkr.SaurerP190201.hue4Saurer;
 
+import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
-public class ThreadB
+public class ThreadB implements Callable<Integer>
 {
-    public static void main(String[] args)
+    @Override
+    public Integer call() throws Exception
     {
         Aufgabe2 a = new Aufgabe2();
-        a.starter();
-        ThreadPoolExecutor tpe = (ThreadPoolExecutor) Executors.newFixedThreadPool(a.wievielethreads);
-        for (int i = 1; i < a.wievielethreads; i++)
+        int summe = 0;
+        int z=1;
+        for (int i = summe-100; i < a.weite; i++)
         {
-            System.out.println("Created Thread "+i);
-            tpe.execute(a);
+            summe += z;
+            z++;
         }
-        tpe.shutdown();
+        return null;
     }
 }

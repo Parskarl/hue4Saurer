@@ -1,9 +1,11 @@
 package net.htlgkr.SaurerP190201.hue4Saurer;
 
+import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
-public class ThreadA
+public class ThreadA implements Callable<List<Integer>>
 {
     int weite;
     int weite2;
@@ -26,5 +28,11 @@ public class ThreadA
             tpe.execute(a);
         }
         tpe.shutdown();
+    }
+
+    @Override
+    public List<Integer> call() throws Exception
+    {
+        return null;
     }
 }

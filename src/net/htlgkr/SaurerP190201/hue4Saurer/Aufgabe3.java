@@ -16,10 +16,10 @@ public class Aufgabe3
         arr.add("no");
         arr.add("");
 
-        System.out.println(getCountEmptyString(arr));
-        System.out.println(getCountLength3(arr));
-        System.out.println(deleteEmptyStrings(arr));
-        System.out.println(getMergedString(arr,"/"));
+        System.out.println("getCountEmptyString: "+getCountEmptyString(arr));
+        System.out.println("getCountLength3 :"+getCountLength3(arr));
+        System.out.println("deleteEmptyStrings :"+deleteEmptyStrings(arr));
+        System.out.println("getMergedString :"+getMergedString(arr,"/"));
 
         List<Integer> arri = new ArrayList<>();
         arri.add(1);
@@ -27,11 +27,11 @@ public class Aufgabe3
         arri.add(3);
         arri.add(4);
 
-        System.out.println(getSquares(arri));
-        System.out.println(getMax(arri));
-        System.out.println(getMin(arri));
-        System.out.println(getSum(arri));
-        System.out.println(getAverage(arri));
+        System.out.println("getSquares :"+getSquares(arri));
+        System.out.println("getMax :"+getMax(arri));
+        System.out.println("getMin :"+getMin(arri));
+        System.out.println("getSum :"+getSum(arri));
+        System.out.println("getAverage :"+getAverage(arri));
     }
 
     private static int getCountEmptyString(List<String> strings)
